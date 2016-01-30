@@ -11,31 +11,18 @@
 int main(int argc, const char * argv[]) {
     @autoreleasepool {
         NSMutableArray *A = [[NSMutableArray alloc] init];
-        [A addObjectsFromArray:@[@2, @3, @1, @5]];
-        NSInteger N = 4;
+        [A addObjectsFromArray:@[@2, @3, @4, @1]];
         
+        NSInteger sumN = (1 + [A count]) * [A count] / 2;
+        NSInteger sumA = 0;
+        NSInteger missing = 0;
         for (int i = 0; i < [A count]; i ++) {
-            if ([A[i] integerValue] <= N) {
-                if ([A[i] integerValue] != i+1)
-                {
-                    NSNumber *temp = 0;
-                    NSNumber *swap1 = A[i];
-                    NSNumber *swap2 = A[[swap1 intValue] - 1];
-                    temp = swap1;
-                    swap1 = swap2;
-                    swap2 = temp;
-                    [A replaceObjectAtIndex:i withObject:swap1];
-                    [A replaceObjectAtIndex:[swap2 intValue] - 1 withObject:swap2];
-                }
-            }
+            sumA += [A[i] integerValue];
         }
         
-        for (int i = 0; i < [A count] - 1; i ++) {
-            if ([A[i] integerValue] > [A[i + 1] integerValue]) {
-                NSLog(@"%d", i+1);
-            }
-        }
-        NSLog(@"%ld", N);
+        missing = sumN + [A count] + 1 - sumA;
+        
+        NSLog(@"%ld", missing);
     }
     return 0;
 }
